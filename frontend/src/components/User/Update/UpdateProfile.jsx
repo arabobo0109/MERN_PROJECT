@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { clearErrors, loadUser, updateProfile } from '../../../actions/userAction';
 import profile from '../../../assests/images/hero.png';
 import { UPDATE_PROFILE_RESET } from '../../../constants/userConstants';
-import { BASE_PROFILE_IMAGE_URL } from '../../../utils/constants';
 import MetaData from '../../Layouts/MetaData';
 
 const UpdateProfile = () => {
@@ -22,7 +21,7 @@ const UpdateProfile = () => {
     const [website, setWebsite] = useState("");
     const [bio, setBio] = useState("");
     const [email, setEmail] = useState("");
-    const [oldAvatar, setOldAvatar] = useState("");
+    const [oldAvatar, setOldAvatar] = useState({});
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("");
 
@@ -50,13 +49,14 @@ const UpdateProfile = () => {
     const handleAvatarChange = (e) => {
         const reader = new FileReader();
         setAvatar("");
+        setAvatarPreview("");
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setAvatarPreview(reader.result);
+                setAvatar(reader.result);
             }
         };
         reader.readAsDataURL(e.target.files[0]);
-        setAvatar(e.target.files[0]);
     }
 
     useEffect(() => {
@@ -92,7 +92,7 @@ const UpdateProfile = () => {
             >
                 <div className="flex items-center gap-8 ml-20">
                     <div className="w-11 h-11">
-                        <img draggable="false" className="w-full h-full rounded-full border object-cover" src={avatarPreview ? avatarPreview : BASE_PROFILE_IMAGE_URL + oldAvatar} alt="avatar" />
+                        <img draggable="false" className="w-full h-full rounded-full border object-cover" src={avatarPreview ? avatarPreview : oldAvatar?.url} alt="avatar" />
                     </div>
                     <div className="flex flex-col gap-0">
                         <span className="text-xl">{username}</span>
