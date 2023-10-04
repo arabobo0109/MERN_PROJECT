@@ -116,6 +116,7 @@ const PostItem = ({ _id, caption, likes, comments, image, postedBy, savedBy, cre
                         <div className="p-4 w-full flex-1 max-h-[63vh] overscroll-x-hidden overflow-y-auto">
 
                             <div className="flex items-start">
+
                                 <Link to={`/${postedBy.username}`} className="w-12"><img draggable="false" className="w-9 h-9 rounded-full object-cover" src={postedBy.avatar.url} alt="avatar" /></Link>
                                 <Link to={`/${postedBy.username}`} className="text-sm font-semibold hover:underline">{postedBy.username}</Link>
                             </div>
